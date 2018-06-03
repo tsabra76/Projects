@@ -14,6 +14,8 @@ def nyweather():
     NYweather = str("<h1 style=\"text-align:center;\">New York: " + NYnoaa_result['weather'] + " and " + NYnoaa_result['temp_f'] + " F.</h1>\n")
     if NYnoaa_result['weather'] == "Fair":
         return NYweather + weatherpics.sunny
+    elif NYnoaa_result['weather'] == "Partly Cloudy" or NYnoaa_result['weather'] == "A Few Clouds":
+        return NYweather + weatherpics.partly_cloudy
     else:
         return NYweather + weatherpics.cloudy
 
@@ -25,6 +27,8 @@ def sfweather():
     SFweather = str("<h1 style=\"text-align:center;\">San Francisco: " + SFnoaa_result['weather'] + " and " + SFnoaa_result['temp_f'] + " F.</h1>\n")
     if SFnoaa_result['weather'] == "Fair":
         return SFweather + weatherpics.sunny
+    elif SFnoaa_result['weather'] == "Partly Cloudy" or SFnoaa_result['weather'] == "A Few Clouds":
+        return SFweather + weatherpics.partly_cloudy
     else:
         return SFweather + weatherpics.cloudy
 
