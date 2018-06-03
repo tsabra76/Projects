@@ -1,0 +1,17 @@
+1528019145480	geckodriver	INFO	geckodriver 0.20.1
+1528019145485	geckodriver	INFO	Listening on 127.0.0.1:55197
+1528019146504	mozrunner::runner	INFO	Running command: "/Applications/Firefox.app/Contents/MacOS/firefox-bin" "-marionette" "-profile" "/var/folders/4k/wcqf0kxd5lx5p_j5vthz5t600000gq/T/rust_mozprofile.gImrLiyLroSN"
+Unable to read VR Path Registry from /Users/tsabra/Library/Application Support/OpenVR/.openvr/openvrpaths.vrpath
+Unable to read VR Path Registry from /Users/tsabra/Library/Application Support/OpenVR/.openvr/openvrpaths.vrpath
+2018-06-03 02:45:48.418 plugin-container[12650:645105] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7337, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2018-06-03 02:45:48.514 plugin-container[12650:645105] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x7313, name = 'com.apple.coredrag'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+1528019149079	Marionette	INFO	Listening on port 55204
+1528019149202	Marionette	WARN	TLS certificate errors will be ignored for this session
+Unable to read VR Path Registry from /Users/tsabra/Library/Application Support/OpenVR/.openvr/openvrpaths.vrpath
+2018-06-03 02:45:49.442 plugin-container[12651:645195] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x8437, name = 'com.apple.tsm.portname'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+2018-06-03 02:45:49.533 plugin-container[12651:645195] *** CFMessagePort: bootstrap_register(): failed 1100 (0x44c) 'Permission denied', port = 0x8417, name = 'com.apple.coredrag'
+See /usr/include/servers/bootstrap_defs.h for the error codes.
+*** UTM:SVC TimerManager:registerTimer called after profile-before-change notification. Ignoring timer registration for id: telemetry_modules_ping
