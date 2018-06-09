@@ -5,5 +5,10 @@ easygui
 flask
 selenium
 pwapi
-
 Firefox driver (geckdriver)
+
+
+
+
+Some legacy files still included from an earlier build
+
