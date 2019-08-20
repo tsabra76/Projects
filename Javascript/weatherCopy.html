@@ -1,0 +1,129 @@
+<html>
+<!--
+# Created by Tarek J Sabra
+# 8/14/2019
+-->
+    <head><title>Weather Page</title></head>
+    <body>
+
+        <style>
+            div, footer {
+                font-family: "Arial";
+            }
+            footer {
+                margin-top: 50px;
+            }
+            h3 {
+                margin-bottom: 0px !important
+            }
+            .main {
+                width: 340px;
+                display: inline-block;
+                margin-left: 10px;
+            }
+       </style>
+        <script>
+            function showCurrentTime() {
+                let currentTime = new Date()
+                let hour = currentTime.getHours()
+                let minutes = currentTime.getMinutes()
+                let seconds = currentTime.getSeconds()
+                let meridian = "AM"
+                
+                //TIME LOGIC
+                if(hour >= 12) {
+                    meridian = "PM"
+                }
+
+                if (hour > 12) {
+                    hour = hour - 12
+                }
+
+                if (hour == 0) {
+                    hour = 12
+                }
+
+                if (minutes < 10)
+                {
+                    minutes = "0" + minutes;
+                }
+
+                if (seconds < 10)
+                {
+                    seconds = "0" + seconds;
+                }
+   
+                // ASSEMBLE TIME VARIABLES IN A STRING 
+                const time = `${hour}:${minutes}:${seconds} ${meridian}`
+                return time
+               
+            }
+            //UPDATE THESE ARRAYS TO ADD OR REMOVE WEATHER LOCATIONS. JUST PLACE THE ZIP CODE AND LOCATION IN THE SAME INDEX POSITION
+            const zipCodes = [11209, 94710, 68008, 94565, 94103, 94596]
+            const place = ["Bay Ridge", "Berkeley", "Blair", "Pittsburg", "San Francisco", "Walnut Creek"]
+
+            
+            async function updateWeather(){ 
+                //REFRESH PAGE EVERY 10 MINUTES
+                setTimeout("location.reload(true);", 600000);
+                //LOOP THROUGH ZIP CODES
+                for(let i=0;i<zipCodes.length;i++){
+                    
+                    //GET JSON RESPONSE PASSING ZIP CODE
+                    //APP_KEY IS INVALID TO PREVENT ABUSE. OBTAIN NEW KEY FROM WEATHERUNLOCKED.COM AND REPLACE THE ONE BELOW
+                    const url = `http://api.weatherunlocked.com/api/current/us.${zipCodes[i]}?app_id=f7e09231&app_key=545d4eae126c9e4a44b83d25991fdtt5`
+                    const response = await fetch(url)
+                    const weatherData = await response.json()
+                    
+                    //FIND THE TAG WITH THE MATCHING ID
+                    const d = document.querySelector("body")
+                    
+                    //CREATE SPAN ELEMENTS TO INSERT WEATHER VALUES
+
+                    let weatherDiv = document.createElement("div")
+                    weatherDiv.className = "main"
+                    let h = document.createElement("h3")
+                    h.id = `_${zipCodes[i]}`
+                    h.innerHTML = `${place[i]}`
+                    weatherDiv.appendChild(h)
+                    const weatherConditions = document.createElement("span")
+                    const weatherTemp = document.createElement("span")
+                    const weatherHumidity = document.createElement("span")
+                    const weatherWindDirectionFrom = document.createElement("span")
+                    const weatherCloudCover = document.createElement("span")
+
+                    //ADD ATTRIBUTES TO THE SPAN ELEMENTS
+                    weatherTemp.innerHTML = `Temperature:&nbsp;${weatherData.temp_f}F, feels like ${weatherData.feelslike_f}F<br />`
+                    weatherTemp.className = "temp"
+                    weatherHumidity.innerHTML = `Humidity:&nbsp;${weatherData.humid_pct}%<br />`
+                    weatherHumidity.className = "hum"
+                    weatherConditions.innerHTML = `Conditions:&nbsp;${weatherData.wx_desc}<br />`
+                    weatherConditions.className ="cond"
+                    weatherWindDirectionFrom.innerHTML = `Wind:&nbsp;${weatherData.windspd_mph}MPH from the&nbsp;${weatherData.winddir_compass}<br />`
+                    weatherWindDirectionFrom.className = 'wind'
+                    weatherCloudCover.innerHTML = `Cloud Cover:&nbsp;${weatherData.cloudtotal_pct}%<br />`
+                    
+                    //ADD THE SPAN ELEMENTS TO THE DOM
+                    d.appendChild(weatherDiv)
+                    weatherDiv.appendChild(weatherTemp)
+                    weatherTemp.parentNode.insertBefore(weatherHumidity, weatherTemp.nextSibling)
+                    weatherHumidity.parentNode.insertBefore(weatherConditions, weatherHumidity.nextSibling)
+                    weatherConditions.parentNode.insertBefore(weatherWindDirectionFrom, weatherHumidity.nextSibling)
+                    weatherWindDirectionFrom.parentNode.insertBefore(weatherCloudCover, weatherWindDirectionFrom.nextSibling)
+
+                    }
+                    //CREATE FOOTER THEN APPEND TIME ELEMENT WITH TIME FROM showCurrentTime()
+                    const footer = document.createElement("footer")
+                    footer.innerHTML = "Updated every 10 minutes. Last update:&nbsp;"
+                    const d = document.querySelector("body")
+                    d.appendChild(footer)
+                    const timeElement = document.createElement("time")
+                    timeElement.innerHTML = showCurrentTime()
+                    footer.appendChild(timeElement)
+            }
+        //UPDATE THE WEATHER ON PAGE LOAD SO WEATHER DISPLAYS IMMEDIATELY
+        window.onload = updateWeather()
+        
+        </script>
+    </body>
+</html>

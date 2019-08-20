@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<head></head>
+<body>
+<h1>STAR<br>WARS</h1>
+<p id="input">
+    <select>
+        <option value="people">People</option>
+        <option value="planets">Planets</option>
+        <option value="species">Species</option>
+        <option value="starships">Starships</option>
+      </select>
+    ID:&nbsp;<input type="text" id="catID">
+</p>
+<p id="output">
+    <input type="button" id="btn" onclick="getSW()" value="Search"><br>NOTE:IDs can be anything between 1 and 50, but not all IDs in that range produce results.
+</p>
+    <script>
+        
+        async function getSW() {
+            
+            var btn = document.querySelector("#btn")
+            btn.disabled = true
+            
+            //IF THE ELEMENTS WERE ALREADY DYNAMICALLY GENERATED, REMOVE THEM BEFORE THE NEXT FETCH
+            const massExists = document.querySelector("#mass")
+            const nameExists = document.querySelector("#name")
+            const terrainExists = document.querySelector("#terrain")
+            const classificationExists = document.querySelector("#classification")
+            const designationExists = document.querySelector("#designation")
+            const languageExists = document.querySelector("#language")
+            const modelExists = document.querySelector("#model")
+            const manufacturerExists = document.querySelector("#manufacturer")
+            const starshipClassExists = document.querySelector("#starship_class")
+            const errExists = document.querySelector("#error")
+
+            if (nameExists){
+                nameExists.remove()
+            }
+            if (massExists){
+                massExists.remove()
+            }
+            if (terrainExists){
+                terrainExists.remove()
+            }
+            if (classificationExists){
+                classificationExists.remove()
+            }
+            if (designationExists){
+                designation.remove()
+            }
+            if (languageExists){
+                languageExists.remove()
+            }
+            if (modelExists){
+                modelExists.remove()
+            }
+            if (manufacturerExists){
+                manufacturerExists.remove()
+            }
+            if (starshipClassExists){
+                starshipClassExists.remove()
+            }
+            if (errExists){
+                errExists.remove()
+            }
+            const category = document.querySelector("select").value
+            const catID = document.querySelector("#catID").value
+            const pOutput = document.querySelector("#output")
+
+            const sw_api_url = `https://swapi.co/api/${category}/${catID}/?format=json`
+            const response = await fetch(sw_api_url)
+            
+                const data  = await response.json()
+                if (response.ok) {
+                    if (category =="people"){
+                        
+                        const name  = document.createElement("span")
+                        name.id = "name"
+                        name.innerHTML = `Name:&nbsp;${data.name}`
+                        const mass = document.createElement("span")
+                        mass.id = "mass"
+                        mass.innerHTML = `<br>Mass(kg):&nbsp;${data.mass}`
+                        pOutput.parentNode.insertBefore(name, pOutput.nextSibling);
+                        name.parentNode.insertBefore(mass, name.nextSibling);
+                        
+                    }
+                    if (category =="planets"){
+                        
+                        const name  = document.createElement("span")
+                        name.id = "name"
+                        name.innerHTML = `Name:&nbsp;${data.name}`
+                        const mass = document.createElement("span")
+                        mass.id = "mass"
+                        mass.innerHTML = `<br>Climate:&nbsp;${data.climate}`
+                        const terrain = document.createElement("span")
+                        terrain.id = "terrain"
+                        terrain.innerHTML = `<br>Terrain:&nbsp;${data.terrain}`
+                        
+                        pOutput.parentNode.insertBefore(name, pOutput.nextSibling);
+                        name.parentNode.insertBefore(mass, name.nextSibling);
+                        mass.parentNode.insertBefore(terrain, mass.nextSibling);
+                        
+                    }
+                    if (category =="species"){
+                        
+                        const name  = document.createElement("span")
+                        name.id = "name"
+                        name.innerHTML = `Name:&nbsp;${data.name}`
+                        const classification = document.createElement("span")
+                        classification.id = "classification"
+                        classification.innerHTML = `<br>Classification:&nbsp;${data.classification}`
+                        const designation = document.createElement("span")
+                        designation.id = "designation"
+                        designation.innerHTML = `<br>Designation:&nbsp;${data.designation}`
+                        const language  = document.createElement("span")
+                        language.id = "language"
+                        language.innerHTML = `<br>Language:&nbsp;${data.language}`
+
+                        pOutput.parentNode.insertBefore(name, pOutput.nextSibling);
+                        name.parentNode.insertBefore(classification, name.nextSibling);
+                        classification.parentNode.insertBefore(designation, classification.nextSibling);
+                        designation.parentNode.insertBefore(language, designation.nextSibling);
+
+                    }
+                    if (category =="starships"){
+                        
+                        const name  = document.createElement("span")
+                        name.id = "name"
+                        name.innerHTML = `Name:&nbsp;${data.name}`
+                        const manufacturer = document.createElement("span")
+                        manufacturer.id = "manufacturer"
+                        manufacturer.innerHTML = `<br>Manufacturer:&nbsp;${data.manufacturer}`
+                        const model = document.createElement("span")
+                        model.id = "designation"
+                        model.innerHTML = `<br>Model:&nbsp;${data.model}`
+                        const starship_class  = document.createElement("span")
+                        starship_class.id = "starship_class"
+                        starship_class.innerHTML = `<br>Class:&nbsp;${data.starship_class}`
+
+                        pOutput.parentNode.insertBefore(name, pOutput.nextSibling);
+                        name.parentNode.insertBefore(manufacturer, name.nextSibling);
+                        manufacturer.parentNode.insertBefore(model, manufacturer.nextSibling);
+                        model.parentNode.insertBefore(starship_class, model.nextSibling);
+                        
+                    }
+                    btn.disabled = false
+                }
+                    else {
+                        var err = document.createElement("span")
+                        err.id ="error"
+                        err.innerHTML = "Data does not exist."
+                        pOutput.parentNode.insertBefore(err, pOutput.nextSibling);
+                        btn.disabled = false
+                    }
+                
+ 
+            
+        }
+
+    </script>
+</body>
+
+</html>
